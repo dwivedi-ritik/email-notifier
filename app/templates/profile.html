@@ -1,0 +1,19 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+{% if request.user.is_authenticated %}
+<p>Hello , Welcome {{user}}</p>
+
+Add next reminders
+<form>
+    {{email_form}}
+</form>
+
+Your previous Notifier
+
+
+<a href='{% url "logout" %}''>Logout </a>
+{% endif %}
+
+{% endblock %}
