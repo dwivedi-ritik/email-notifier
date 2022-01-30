@@ -1,0 +1,12 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<p>This is the sign up page</p>
+<form method="POST">
+    {% csrf_token %}
+    <input type="email" placeholder="Enter Your Email" name="email">
+    <input type="username" placeholder="Enter Your username" name="username">
+    <input type="password" placeholder="enter your password" name="password">
+    <input type="submit" value="sign_up">
+</form>
+{% endblock %}

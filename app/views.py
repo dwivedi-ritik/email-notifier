@@ -5,14 +5,29 @@ from django.contrib.auth import login , logout , authenticate
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
-from .forms import UserEmailForm
+from .forms import UserEmailForm , UserCreateForm
+from .models import Emails 
+
+
 
 def home(request):
     return render(request, 'index.html')
 
 
-def create_user(request):
-    pass
+def sign_up(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        user = User.objects.create_user(username=username , email=email , password=password)
+        #Login newly created user
+        auth_user = authenticate(request , username= username , password=password)
+        if auth_user is not None:
+            login(request , auth_user)
+            return redirect('user-home')
+    else:
+        return render(request , 'sign_up.html')
+
 
 @login_required(redirect_field_name='home')
 def user_profile_home(request):
@@ -20,6 +35,8 @@ def user_profile_home(request):
         pass
     else:
         email_form = UserEmailForm()
+        emails_data = Emails.objects.filter(author=request.user)
+        print(list(emails_data))
         data = {
             "user":request.user,
             "email_form": email_form
