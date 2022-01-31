@@ -1,0 +1,23 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+{% if request.user.is_authenticated %}
+<p>Hello , Welcome {{request.user}}</p>
+
+Add next reminders
+<form method="POST">
+    {% csrf_token %}
+    {{ email_form }}
+    <button type="submit">Add</button>
+</form>
+
+Your previous Notifier
+{% for user_email in user_emails %}
+<p>{{ user_email.title }}</p>
+<p>{{ user_email.mail_text }}</p>
+{% endfor %}
+<a href='{% url "logout" %}'>Logout </a>
+
+{% endif %}
+{% endblock %}

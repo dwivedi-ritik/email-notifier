@@ -1,0 +1,16 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<p>This is the sign up page</p>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">SIGN UP</button>
+</form>
+
+{% if form.errors %}
+<p>Error occ</p>
+{% endif %}
+
+{% endblock %}
