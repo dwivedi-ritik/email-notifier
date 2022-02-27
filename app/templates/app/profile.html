@@ -6,17 +6,27 @@
 <p>Hello , Welcome {{request.user}}</p>
 
 Add next reminders
+<hr>
 <form method="POST">
     {% csrf_token %}
     {{ email_form }}
     <button type="submit">Add</button>
 </form>
 
-Your previous Notifier
-{% for user_email in user_emails %}
-<p>{{ user_email.title }}</p>
-<p>{{ user_email.mail_text }}</p>
-{% endfor %}
+<strong>Your previous Notifier</strong>
+<hr>
+
+<ul>
+    {% for user_email in user_emails %}
+    <li>
+        <strong>Title . </strong>
+        <p>{{ user_email.title }}</p>
+        <strong>Mail Txt . </strong>
+        <p>{{ user_email.mail_text }}</p>
+    </li>
+    {% endfor %}
+
+</ul>
 <a href='{% url "logout" %}'>Logout </a>
 
 {% endif %}
