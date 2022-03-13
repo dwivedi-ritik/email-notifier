@@ -37,7 +37,7 @@ def user_profile_home(request):
     if request.method == 'POST':
         email_form = UserEmailForm(request.POST)
         if email_form.is_valid():
-
+            #Creating new user email data
             email = Emails(title = request.POST['title'] , mail_text = request.POST['mail_text'] , \
                 time = request.POST['time'] , status = False , author = request.user)
             email.save()

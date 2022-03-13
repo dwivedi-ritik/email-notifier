@@ -1,12 +1,24 @@
 {% extends 'index.html' %}
 
+{% load static %}
+
+
+{% block css_link %}
+<link rel="stylesheet" href={% static 'app/app.css'%}>
+{% endblock%}
+
 {% block content %}
-<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi eligendi nam hic in autem corrupti accusamus, nobis
-    aut optio neque?</p>
-<form method="POST">
-    {% csrf_token %}
-    <input type="text" placeholder="Enter your email" name='usrname'>
-    <input type="password" , name='pass'>
-    <input type="submit" value="login">
-</form>
+<p class="log-in">Welcome to the login page</p>
+
+
+<div class="login-card">
+
+    <form method="POST">
+        <p>Login</p>
+        {% csrf_token %}
+        <input type="text" placeholder="Enter your email" name='usrname' class="form-txt">
+        <input type="password" , name='pass' class="form-txt">
+        <input type="submit" value="login" class="login-btn">
+    </form>
+</div>
 {% endblock %}
