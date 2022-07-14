@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm 
 
 from django.contrib import messages 
 
@@ -54,19 +54,21 @@ def user_profile_home(request):
 
 
 def login_user(request):
+    context = {
+        "alert":None
+    }
     if request.method == 'POST':
         username = request.POST.get('usrname')
         password = request.POST.get('pass')
 
         auth_usr = authenticate(request , username=username , password=password)
-        if auth_usr is not None:
-            login(request, auth_usr)
-
-            return redirect('user-home')
-        else:
-            return HttpResponse("Invalid User Name and password")
+        if auth_usr is None:
+            context["alert"] = "Username or Password is incorrect"
+            return render(request , 'app/login.html' , context)
+        login(request, auth_usr)
+        return redirect('user-home')
     else:
-        return render(request, 'app/login.html')
+        return render(request, 'app/login.html' ,context )
 
 
 def logout_user(request):

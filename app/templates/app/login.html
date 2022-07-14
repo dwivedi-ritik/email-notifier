@@ -2,23 +2,42 @@
 
 {% load static %}
 
-
-{% block css_link %}
-<link rel="stylesheet" href={% static 'app/app.css'%}>
-{% endblock%}
-
 {% block content %}
-<p class="log-in">Welcome to the login page</p>
+<div class="mask d-flex align-items-center mt-4">
+    <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+                <div class="card" style="border-radius: 15px;">
+                    <div class="card-body p-5">
+                        <h2 class="text-uppercase text-center mb-5">Login</h2>
 
+                        <form method="POST">
+                            {% csrf_token %}
+                            <div class="form-outline mb-4">
+                                <input type="username" id="form3Example3cg" class="form-control form-control-lg"
+                                    placeholder="Your username" name="usrname" />
+                            </div>
 
-<div class="login-card">
+                            <div class="form-outline mb-4">
+                                <input type="password" id="form3Example4cg" class="form-control form-control-lg"
+                                    placeholder="password" name="pass" />
+                            </div>
 
-    <form method="POST">
-        <p>Login</p>
-        {% csrf_token %}
-        <input type="text" placeholder="Enter your email" name='usrname' class="form-txt">
-        <input type="password" , name='pass' class="form-txt">
-        <input type="submit" value="login" class="login-btn">
-    </form>
+                            {% if alert %}
+                            <div class="alert alert-info" role="alert">
+                                <p>{{ alert }}</p>
+                            </div>
+                            {% endif %}
+                            
+                            <div class="d-flex justify-content-center">
+                                <input type="submit" class="btn btn-outline-primary btn-block btn-lg text-body"
+                                    value="Login" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}

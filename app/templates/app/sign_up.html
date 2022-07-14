@@ -1,16 +1,51 @@
 {% extends 'index.html' %}
-
 {% block content %}
-<p>This is the sign up page</p>
 
-<form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">SIGN UP</button>
-</form>
+<div class="mask d-flex align-items-center mt-4">
+    <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+                <div class="card" style="border-radius: 15px;">
+                    <div class="card-body p-5">
+                        <h2 class="text-uppercase text-center mb-5">Sign-up</h2>
 
-{% if form.errors %}
-<p>Error occ</p>
-{% endif %}
+                        <form method="POST">
+                            {% csrf_token %}
+                            <div class="form-outline mb-4">
+                                <input type="username" id="form3Example3cg" class="form-control form-control-lg"
+                                    placeholder="Your username" name="username" />
+                            </div>
 
+                            <div class="form-outline mb-4">
+                                <input type="password" id="form3Example4cg" class="form-control form-control-lg"
+                                    placeholder="Password" name="password1" />
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                <input type="password" id="form3Example4cg" class="form-control form-control-lg"
+                                    placeholder="Confirm Password" name="password2" />
+                            </div>
+
+
+                            <div class="form-outline mb-4">
+                                <input type="email" id="form3Example4cg" class="form-control form-control-lg"
+                                    placeholder="Email" name="email" />
+                            </div>
+                            {% if form.errors %}
+                            <div class="alert alert-info" role="alert">
+                                <p>{{ form.errors }}</p>
+                            </div>
+                            {% endif %}
+                            <div class="d-flex justify-content-center">
+                                <input type="submit" class="btn btn-outline-primary btn-block btn-lg text-body"
+                                    value="Signup" />
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
