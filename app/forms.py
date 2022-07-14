@@ -5,10 +5,10 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from .models import Emails
 
-
+# depreacted
 class UserEmailForm(ModelForm):
     class Meta:
-        fields = ['title' , 'mail_text' , 'time' , 'status']
+        fields = ['title' , 'description', 'mail_text' , 'time' , 'status']
         model = Emails
 
 

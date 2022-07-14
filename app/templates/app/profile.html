@@ -1,33 +1,80 @@
 {% extends 'index.html' %}
 
+
+{% block logout %}
+    <a href='{% url "logout" %}' class="btn btn-primary me-3 mx-2">Logout </a>
+{%endblock%}
+
 {% block content %}
+    {% if request.user.is_authenticated %}
+    <div class="mt-5 container">
+        <div class="row">
+         <div class="col-4 card">
+             <div class="card-body">
+               <h4 class="card-title">Hello , Welcome {{request.user}}</h4>
+               <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+               <a href="#" class="btn btn-primary">Edit Profile</a>
+             </div>
+        </div>
+ 
+         <div class="container align-items-center col">
+             <div class="alert alert-primary" role="alert">
+                 Add next reminders
+             </div>
 
-{% if request.user.is_authenticated %}
-<p>Hello , Welcome {{request.user}}</p>
+             <form class="container" method="POST">
+                {% csrf_token %}
+                 <div class="row">
+                     <div class="col">
+                        <input type="text" class="form-control" placeholder="Title" type="text" name="title" maxlength="150">
+                     </div>
+                     <div class="col">
+                        <input type="text" class="form-control" placeholder="Description" name="description" >
+                     </div>
+                 </div>
+                 <div class="row my-3">
+                    <div class="col">
+                        <textarea type="text" class="form-control" name="mail_text" placeholder="Mail" rows="5"></textarea>
+                    </div>
+                 </div>
+                 <div class="row">
+                    <div class="col">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" name="status" id="customCheck1">
+                            <label class="custom-control-label" for="customCheck1">Check this custom checkbox</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" placeholder="Time" name="time" /> 
+                    </div>
+                </div>
+                <div class="row my-3">
+                    <div class="col">
+                        <input type="submit" class="btn btn-outline-success mb-2" value="Add into queue"/>
+                    </div>
+                </div>
+             </form>
+         </div> 
+        </div>
 
-Add next reminders
-<hr>
-<form method="POST">
-    {% csrf_token %}
-    {{ email_form }}
-    <button type="submit">Add</button>
-</form>
+        <div class="row mt-5"> 
+            <div class="alert alert-primary" role="alert">
+                Your Previous reminders
+            </div>
+        <div>
+            <ul>
+                {% for user_email in user_emails %}
+                    <li>
+                        <strong>Title . </strong>
+                        <p>{{ user_email.title }}</p>
+                        <strong>Mail Txt . </strong>
+                        <p>{{ user_email.mail_text }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
 
-<strong>Your previous Notifier</strong>
-<hr>
+       </div>
 
-<ul>
-    {% for user_email in user_emails %}
-    <li>
-        <strong>Title . </strong>
-        <p>{{ user_email.title }}</p>
-        <strong>Mail Txt . </strong>
-        <p>{{ user_email.mail_text }}</p>
-    </li>
-    {% endfor %}
-
-</ul>
-<a href='{% url "logout" %}' class="btn btn-outline-primary">Logout </a>
-
-{% endif %}
+    {% endif %}
 {% endblock %}
